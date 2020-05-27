@@ -1,0 +1,1 @@
+so far I created a simple javascript rock paper scissors game. The choice to use rock, paper, scis selection through 1-3 wasnt ideal, but it's a place holder for future buttons with a front end page. The idea is to use buttons assigned to rock, paper or scissors. so for now, it's a placeholder.
