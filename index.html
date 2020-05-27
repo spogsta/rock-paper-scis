@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+    <script>
+
+        let rock = "rock"
+        let paper = "paper"
+        let scissors = "scissors"
+
+        function getRndInteger(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        function rockPaperScis (x){
+            if (x == 1) {
+                return rock;
+            }
+            else if (x == 2) {
+                return paper;
+            }
+            else {
+                return scissors;
+            }
+
+        }
+
+        function computerPlay() {
+            let randomNumber = getRndInteger(1, 4);
+            let computerTurn = rockPaperScis(randomNumber);
+            console.log(computerTurn);
+            return computerTurn;
+        }
+
+
+
+        function playerPlay() {
+
+            let playerSelection = prompt("Rock paper scissors, press 1 f or rock, 2 for paper, or 3 for scissors");
+            let playerTurn = rockPaperScis(playerSelection);
+            console.log(playerTurn);
+            return playerTurn;
+
+        }
+
+
+
+
+        function round(x, y) {
+
+
+            if (x == y) {
+                return "Tie"
+
+            }
+            else if (x == rock && y == scissors) {
+                return "Winner";
+
+            }
+            else if (x == scissors && y == paper) {
+                return "Winner";
+
+            }
+            else if (x == paper && y == rock) {
+                return "Winner";
+
+            }
+            else {
+                return "Loser";
+
+            }
+        }
+
+
+
+
+        function game() {
+            let win = 0;
+            let loss = 0;
+            let tie = 0;
+
+            let rounds = prompt("How many rounds would you like to play?")
+
+            for (i = 0; i < rounds; i++) {
+                let computerSelected = computerPlay();
+                let playerSelected = playerPlay();
+
+                currentRound = round(playerSelected, computerSelected)
+                console.log(currentRound);
+                if (currentRound == "Winner") {
+                    win++;
+                }
+                else if (currentRound == "Tie") {
+                    tie++;
+                }
+                else {
+                    loss++;
+                }
+
+
+            }
+            if (win > loss) {
+                return "You WON!";
+            }
+            else if (win == loss) {
+                return "you TIED!";
+            }
+            else {
+                return "you LOST";
+            }
+        }
+
+        console.log(game());
+    </script>
+
+</body>
+
+</html>
