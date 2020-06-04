@@ -6,6 +6,20 @@
 </head>
 
 <body>
+
+    <div id="container">
+        <button id="rock">Rock</button>
+        <button id="paper">Paper</button>
+        <button id="scissors">Scissors</button>
+        <div id="wins"></div>
+        <div id="losses"></div>
+        <div id="ties"></div>
+        <div id="computerChoice"></div>
+        <div id="roundStatus"></div>
+
+
+    </div>
+
     <script>
 
         let rock = "rock"
@@ -16,7 +30,7 @@
             return Math.floor(Math.random() * (max - min)) + min;
         }
 
-        function rockPaperScis (x){
+        function rockPaperScis (x){ //helps figure out what the computer is playing
             if (x == 1) {
                 return rock;
             }
@@ -29,6 +43,20 @@
 
         }
 
+        let win = 0;
+        let loss = 0;
+        let tie = 0;
+
+        const winsContainer = document.querySelector('#wins');
+        winsContainer.textContent = `Wins: ${win}`;
+        const lossContainer = document.querySelector('#losses');
+        lossContainer.textContent = `Losses: ${loss}`;
+        const tieContainer = document.querySelector('#ties')
+        tieContainer.textContent = `Ties: ${tie}`;
+        const computerContainer = document.querySelector("#computerChoice")
+        computerContainer.textContent =`The computer chose:`;
+        const roundContainer = document.querySelector("#roundStatus");
+
         function computerPlay() {
             let randomNumber = getRndInteger(1, 4);
             let computerTurn = rockPaperScis(randomNumber);
@@ -36,12 +64,33 @@
             return computerTurn;
         }
 
+        const rockButton = document.querySelector('#rock');
+        rockButton.addEventListener('click', () => {
+        return game(rock);
+    
+        });
+
+        const scissorsButton = document.querySelector('#scissors');
+        scissorsButton.addEventListener('click', () => {
+        return game(scissors);
+    
+        });
+
+        const paperButton = document.querySelector('#paper');
+        paperButton.addEventListener('click', () => {
+        return game(paper);
+    
+        });
+        
+        
 
 
-        function playerPlay() {
 
-            let playerSelection = prompt("Rock paper scissors, press 1 f or rock, 2 for paper, or 3 for scissors");
-            let playerTurn = rockPaperScis(playerSelection);
+
+        function playerPlay(e) {
+
+            
+            let playerturn = e;
             console.log(playerTurn);
             return playerTurn;
 
@@ -78,27 +127,46 @@
 
 
 
-        function game() {
-            let win = 0;
-            let loss = 0;
-            let tie = 0;
 
-            let rounds = prompt("How many rounds would you like to play?")
 
+        function game(a) {
+
+
+            let rounds = 1;
+            if (a!=null){ //stops the game from starting initially before player can input
             for (i = 0; i < rounds; i++) {
                 let computerSelected = computerPlay();
-                let playerSelected = playerPlay();
+                let playerSelected = a;
 
                 currentRound = round(playerSelected, computerSelected)
                 console.log(currentRound);
                 if (currentRound == "Winner") {
-                    win++;
+                    win=win+1;
+                    winsContainer.textContent = `Wins: ${win}`;
+                    computerContainer.textContent=`The computer chose: ${computerSelected} last round`;
+                    roundContainer.textContent="You won this round!"
+                    if(win>= 5){
+                        alert("You win!");
+                        newGame();
+                    }
+
+
                 }
                 else if (currentRound == "Tie") {
-                    tie++;
+                    tie=tie+1;
+                    tieContainer.textContent = `Ties: ${tie}`;
+                    computerContainer.textContent=`The computer chose: ${computerSelected} last round`;
+                    roundContainer.textContent="You tied this round!"
                 }
-                else {
-                    loss++;
+                else if (currentRound=="Loser") {
+                    loss=loss+1;
+                    lossContainer.textContent = `Losses: ${loss}`;
+                    computerContainer.textContent=`The computer chose: ${computerSelected} last round`;
+                    roundContainer.textContent="You lost this round!"
+                    if (loss>=5){
+                        alert("You lose!")
+                        newGame();
+                    }
                 }
 
 
@@ -113,8 +181,21 @@
                 return "you LOST";
             }
         }
+        }
+
 
         console.log(game());
+
+        function newGame (){
+            loss =0;
+            win=0;
+            tie=0;
+            lossContainer.textContent = `Losses: ${loss}`;
+            tieContainer.textContent = `Ties: ${tie}`;
+            winsContainer.textContent = `Wins: ${win}`;
+        }
+
+
     </script>
 
 </body>
